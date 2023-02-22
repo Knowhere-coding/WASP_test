@@ -1,0 +1,68 @@
+/* Main Page Styles */
+
+
+/* Table View */
+.table-view {
+    -fx-background-color: #404040;
+    -fx-border-color: #404040;
+}
+
+/* Table Cell */
+
+.table-cell {
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: transparent;
+    -fx-border-width: 5px;
+}
+
+
+/* Table Header */
+
+.column-header {
+    -fx-background-color: #808080;
+    -fx-border-color: #404040;
+}
+
+.column-header:hover {
+    -fx-background-color: #F8B607;
+    /*-fx-border-color: #F8B607;*/
+}
+
+.column-header-background {
+    -fx-background-color: #404040;
+}
+
+.filler {
+    -fx-background-color: transparent;
+}
+
+
+/* Table Row */
+
+.table-row-cell {
+    -fx-background-color: #404040;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #505050;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #F8B607;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: #000000;
+}
+
+
+/* Scroll Bar */
+
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: #404040;
+}
+
+.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    -fx-background-color: #323232;
+}
+
