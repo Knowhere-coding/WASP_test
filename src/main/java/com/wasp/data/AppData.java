@@ -1,4 +1,4 @@
-package com.wasp.javafx;
+package com.wasp.data;
 
 public class AppData {
     private static final AppData instance = new AppData();

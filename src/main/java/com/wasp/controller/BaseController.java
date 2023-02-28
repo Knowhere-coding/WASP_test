@@ -1,4 +1,6 @@
-package com.wasp.javafx;
+package com.wasp.controller;
+
+import com.wasp.Main;
 
 public class BaseController {
 

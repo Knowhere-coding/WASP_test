@@ -10,7 +10,7 @@
 /* Table Cell */
 
 .table-cell {
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #F8B607;
     -fx-border-color: transparent;
     -fx-border-width: 5px;
 }
@@ -25,6 +25,7 @@
 
 .column-header:hover {
     -fx-background-color: #F8B607;
+    -fx-opacity: 0.75;
     /*-fx-border-color: #F8B607;*/
 }
 
@@ -49,6 +50,7 @@
 
 .table-row-cell:selected {
     -fx-background-color: #F8B607;
+    -fx-opacity: 0.75;
 }
 
 .table-row-cell:selected .table-cell {

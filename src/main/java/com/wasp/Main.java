@@ -1,10 +1,14 @@
-package com.wasp.javafx;
+package com.wasp;
 
+import com.wasp.controller.BaseController;
+import com.wasp.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import java.util.Objects;
 
 public class Main extends Application {
 
@@ -17,13 +21,19 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
+
         stage.setResizable(false);
+        stage.setTitle("WASP - Password Manager");
+
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/WASP.png")));
+        stage.getIcons().add(icon);
+
         switchToLoginPage();
         stage.show();
     }
 
     public void switchToLoginPage() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login_page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("pages/login_page.fxml"));
         Parent root = loader.load();
 
         LoginController controller = loader.getController();
@@ -35,7 +45,7 @@ public class Main extends Application {
     }
 
     public void switchToMainPage() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main_page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("pages/main_page.fxml"));
         Parent root = loader.load();
 
         BaseController controller = loader.getController();

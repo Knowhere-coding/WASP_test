@@ -1,5 +1,6 @@
-package com.wasp.javafx;
+package com.wasp.controller;
 
+import com.wasp.data.AppData;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
