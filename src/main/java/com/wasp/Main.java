@@ -1,7 +1,6 @@
 package com.wasp;
 
 import com.wasp.controller.BaseController;
-import com.wasp.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,24 +27,12 @@ public class Main extends Application {
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/WASP.png")));
         stage.getIcons().add(icon);
 
-        switchToLoginPage();
+        switchToPage("login_page.fxml");
         stage.show();
     }
 
-    public void switchToLoginPage() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("pages/login_page.fxml"));
-        Parent root = loader.load();
-
-        LoginController controller = loader.getController();
-        controller.initialize();
-        controller.setMainApp(this);
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-    }
-
-    public void switchToMainPage() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("pages/main_page.fxml"));
+    public void switchToPage(String pageName) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("pages/" + pageName));
         Parent root = loader.load();
 
         BaseController controller = loader.getController();

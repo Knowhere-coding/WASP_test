@@ -1,0 +1,9 @@
+/* Save Button */
+.save-button {
+    -fx-background-color: #404040;
+    -fx-text-fill: #F8B607;
+}
+
+.save-button:hover {
+    -fx-background-color: #363636;
+}

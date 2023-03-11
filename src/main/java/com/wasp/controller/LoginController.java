@@ -20,7 +20,7 @@ public class LoginController extends BaseController {
             AppData.getInstance().setUsername(username);
             AppData.getInstance().setPassword(password);
 
-            mainApp.switchToMainPage();
+            mainApp.switchToPage("main_page.fxml");
         } else {
             if (username.isEmpty() && password.isEmpty()) {
                 loginStatus.setText("Please input a username and password!");

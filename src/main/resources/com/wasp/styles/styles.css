@@ -3,18 +3,19 @@
 /* Buttons */
 .common-button {
     -fx-background-color: #323232;
+    -fx-text-fill: #F8B607;
 }
 
 .common-button:hover {
     -fx-background-color: #363636;
 }
-
+/*
 .common-button:focused {
     -fx-border-width: 2px;
     -fx-border-radius: 5px;
     -fx-border-color: rgba(248, 182, 7, 0.5);
 }
-
+*/
 /* Text-Fields */
 .common-text-field {
     -fx-background-color: #323232;
@@ -50,4 +51,31 @@
 
 .common-choice-box .menu-item:focused > .label {
     -fx-text-fill: #000000;
+}
+
+/* Check Box */
+.common-check-box .box {
+    -fx-background-color: #404040;
+    -fx-border-color: #505050;
+    -fx-border-radius: 2px;
+}
+
+.common-check-box:selected .mark {
+    -fx-background-color: #F8B607;
+}
+
+.common-check-box:selected .box {
+    -fx-background-color: #454545;
+}
+
+/* Progress Bar */
+.progress-bar .bar {
+    -fx-background-color: #F8B607;
+}
+
+.progress-bar .track {
+    -fx-background-color: #505050;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2px;
+    -fx-border-color: #404040;
 }

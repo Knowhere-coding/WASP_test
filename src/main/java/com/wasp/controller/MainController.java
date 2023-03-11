@@ -1,10 +1,8 @@
 package com.wasp.controller;
 
-import com.wasp.data.Entry;
 import com.wasp.handler.CsvHandler;
-import javafx.event.ActionEvent;
+import com.wasp.handler.ObservableListHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ChoiceBox;
@@ -14,7 +12,6 @@ import java.util.Objects;
 
 public class MainController extends BaseController {
 
-    @FXML private Button logoutButton;
     @FXML private TextField searchField;
     @FXML private ChoiceBox<String> searchOptions;
     @FXML private TableView<com.wasp.data.Entry> accountTable;
@@ -26,19 +23,29 @@ public class MainController extends BaseController {
         File csvFile = new File(Objects.requireNonNull(getClass().getResource("account_data.csv")).getFile());
         csvHandler = new CsvHandler(csvFile);
 
-        searchOptions.setItems(csvHandler.getObservableSearchOptionsList(csvHandler.getSearchOptions()));
+        List<String> searchOptionsList = csvHandler.getHeader();
+        searchOptionsList.add(0, "all");
+
+        searchOptions.setItems(ObservableListHandler.getObservableList(searchOptionsList));
         searchOptions.setValue("all");
 
-        accountTable.setItems(csvHandler.getObservableTableList(csvHandler.getCsvList()));
+        accountTable.setItems(ObservableListHandler.getObservableList(csvHandler.getCsvList()));
     }
 
-    public void onLogoutButtonPressed(ActionEvent event) throws Exception {
-        mainApp.switchToLoginPage();
+    public void onLogoutButtonPressed() throws Exception {
+        mainApp.switchToPage("login_page.fxml");
+    }
+
+    public void onHomeButtonPressed() throws Exception {
+        mainApp.switchToPage("main_page.fxml");
+    }
+
+    public void onAddAccountButtonPressed() throws Exception {
+        mainApp.switchToPage("add_account_page.fxml");
     }
 
     public void getSearchOutput() {
         int option = searchOptions.getSelectionModel().getSelectedIndex();
-        List<Entry> entries = csvHandler.getCsvList(searchField.getCharacters().toString(), option);
-        accountTable.setItems(csvHandler.getObservableTableList(entries));
+        accountTable.setItems(ObservableListHandler.getObservableList(csvHandler.getCsvList(searchField.getText(), option, true)));
     }
 }

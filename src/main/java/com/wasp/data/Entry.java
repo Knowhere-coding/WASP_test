@@ -1,5 +1,10 @@
 package com.wasp.data;
 
+import java.util.Map;
+import java.util.StringJoiner;
+
+import static java.util.Map.entry;
+
 public class Entry {
     private int id;
     private String siteName;
@@ -10,6 +15,16 @@ public class Entry {
     private String changeDate;
     private int expiration;
     private String category;
+
+    private final Map<String, Integer> expirations = Map.ofEntries(
+            entry("never", 0),
+            entry("daily", 1),
+            entry("weekly", 7),
+            entry("monthly", 30),
+            entry("quarterly", 90),
+            entry("half-yearly", 180),
+            entry("yearly", 365)
+    );
 
     public Entry(String[] elements) {
         this.id = Integer.parseInt(elements[0]);
@@ -23,7 +38,7 @@ public class Entry {
         this.category = elements[8];
     }
 
-    public Entry(int id, String siteName, String url, String username, String email, String password, String changeDate, int expiration, String category) {
+    public Entry(int id, String siteName, String url, String username, String email, String password, String changeDate, String expiration, String category) {
         this.id = id;
         this.siteName = siteName;
         this.url = url;
@@ -31,8 +46,12 @@ public class Entry {
         this.email = email;
         this.password = password;
         this.changeDate = changeDate;
-        this.expiration = expiration;
+        this.expiration = expirations.get(expiration) != null ? expirations.get(expiration) : -1;
         this.category = category;
+    }
+
+    public String[] getElements() {
+        return new String[]{String.valueOf(id), siteName, url, username, email, password, changeDate, String.valueOf(expiration), category};
     }
 
     public int getId() {
@@ -107,8 +126,16 @@ public class Entry {
         this.category = category;
     }
 
+    public String getCsvEntry() {
+        StringJoiner stringJoiner = new StringJoiner(",");
+        for (String element : getElements()) {
+            stringJoiner.add(element);
+        }
+        return stringJoiner.toString();
+    }
+
     @Override
     public String toString() {
-        return "id: " + id + "; siteName: " + siteName + "; url: " + url + "; username" + username + "; email" + email + "; password" + password + "; changeDate" + changeDate + "; expiration" + expiration + "; category" + category;
+        return "id: " + id + "; siteName: " + siteName + "; url: " + url + "; username: " + username + "; email: " + email + "; password: " + password + "; changeDate: " + changeDate + "; expiration: " + expiration + "; category: " + category;
     }
 }
