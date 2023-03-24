@@ -9,6 +9,10 @@
 .common-button:hover {
     -fx-background-color: #363636;
 }
+
+.common-button:focused {
+    -fx-background-color: #363636;
+}
 /*
 .common-button:focused {
     -fx-border-width: 2px;
@@ -16,6 +20,19 @@
     -fx-border-color: rgba(248, 182, 7, 0.5);
 }
 */
+
+/* Label */
+.common-label {
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 15px;
+}
+
+/* Status Label */
+.common-status-label {
+    -fx-text-fill: #FF0000;
+    -fx-font-size: 12px;
+}
+
 /* Text-Fields */
 .common-text-field {
     -fx-background-color: #323232;

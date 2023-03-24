@@ -41,7 +41,7 @@
                 </font>
             </TextField>
             <ChoiceBox fx:id="searchOptions" layoutX="1020.0" layoutY="49.0" onAction="#getSearchOutput" prefHeight="30.0" prefWidth="130.0" styleClass="common-choice-box" AnchorPane.leftAnchor="1020.0" AnchorPane.rightAnchor="50.0" />
-            <TableView fx:id="accountTable" layoutX="50.0" layoutY="50.0" prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+            <TableView fx:id="accountTable" layoutX="50.0" layoutY="50.0" onMouseClicked="#onAccountSelected" prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
                 <columns>
                     <TableColumn minWidth="30.0" prefWidth="30.0" resizable="false" text="ID">
                         <cellValueFactory>

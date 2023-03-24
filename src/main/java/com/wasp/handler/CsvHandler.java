@@ -1,101 +1,87 @@
 package com.wasp.handler;
 
-import com.wasp.data.Entry;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.bean.*;
+import com.opencsv.exceptions.CsvValidationException;
+import com.wasp.data.BaseData;
 
-public class CsvHandler {
+import java.io.*;
+import java.util.*;
+
+public class CsvHandler<T extends BaseData> {
+    private final Class<T> clazz;
     private final File csvFile;
 
-    public CsvHandler(File csvFile) {
+    public CsvHandler(File csvFile, Class<T> clazz) {
+        this.clazz = clazz;
         this.csvFile = csvFile;
     }
 
-    public List<Entry> getCsvList(String value, int option, boolean hiddenPassword) {
-        List<Entry> entries = new ArrayList<>();
-        String line;
+    public List<T> getCsvList() {
         try {
-            BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
-            csvReader.readLine();
-            while ((line = csvReader.readLine()) != null) {
-                if (value.isEmpty()) {
-                    entries.add(new Entry(line.split(",")));
-                } else if (option == 0 && line.toLowerCase().contains(value.toLowerCase())) {
-                    entries.add(new Entry(line.split(",")));
-                } else if (option != 0 && line.split(",")[option-1].toLowerCase().contains(value.toLowerCase())){
-                    entries.add(new Entry(line.split(",")));
-                }
+            CsvToBeanBuilder<T> csvBeanReader = new CsvToBeanBuilder<T>(new FileReader(csvFile))
+                    .withType(clazz);
+            CsvToBean<T> csvToBean = csvBeanReader.build();
+            return csvToBean.parse();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<String> getCsvHeader() {
+        try (CSVReader csvReader = new CSVReader(new FileReader(csvFile))) {
+            return new ArrayList<>(Arrays.asList(csvReader.readNext()));
+        } catch (IOException | CsvValidationException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void addEntry(T entry) {
+        try (FileWriter fileWriter = new FileWriter(csvFile, true);
+             CSVWriter csvWriter = new CSVWriter(fileWriter)) {
+            String[] nextLine = entry.getValues();
+            csvWriter.writeNext(nextLine, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<T> getTableEntries(String searchString, int option, boolean isPasswordHidden) {
+        List<T> entries = getCsvList();
+        List<T> filteredEntries = new ArrayList<>();
+
+        for (T entry : entries) {
+            String[] entryValues = entry.getValues();
+            String entryValuesStr = String.join(",", entryValues);
+
+            if (isPasswordHidden) {
+                entry.hidePassword();
             }
-            csvReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        if (hiddenPassword) {
-            entries.forEach(entry -> entry.setPassword(entry.getPassword().replaceAll(".", "*")));
+            if (searchString.isEmpty()) {
+                filteredEntries.add(entry);
+            } else if (option == 0 && entryValuesStr.contains(searchString.toLowerCase())) {
+                filteredEntries.add(entry);
+            } else if (option != 0 && entryValues[option-1].toLowerCase().contains(searchString.toLowerCase())) {
+                filteredEntries.add(entry);
+            }
         }
-
-        return entries;
+        return filteredEntries;
     }
 
-    public List<Entry> getCsvList() {
-        return getCsvList("", 0, true);
+    public List<T> getTableEntries(String searchString, int option) {
+        return getTableEntries(searchString, option, true);
     }
 
-    public List<Entry> getCsvList(boolean hiddenPassword) {
-        return getCsvList("", 0, hiddenPassword);
-    }
-
-    public List<String> getHeader() {
-        try {
-            BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
-            return new ArrayList<>(Arrays.asList(csvReader.readLine().split(",")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void saveNewEntry(Entry entry) {
-        try {
-            FileWriter fileWriter = new FileWriter(csvFile, true);
-            BufferedWriter csvWriter = new BufferedWriter(fileWriter);
-
-            csvWriter.write(entry.getCsvEntry());
-            csvWriter.newLine();
-
-            csvWriter.close();
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public List<T> getTableEntries() {
+        return getTableEntries("", 0, true);
     }
 
     public int getNextIndex() {
-        try {
-            RandomAccessFile raf = new RandomAccessFile(csvFile, "r");
-
-            StringBuilder sb = new StringBuilder();
-
-            for (long pointer = csvFile.length() - 1; pointer >= 0; pointer--) {
-                raf.seek(pointer);
-
-                char c = (char) raf.read();
-                if (c == '\n' && pointer != csvFile.length() - 1) {
-                    break;
-                }
-                sb.append(c);
-            }
-            raf.close();
-
-            sb.reverse();
-            String[] lastCsvEntry = sb.toString().split(",");
-            return Integer.parseInt(lastCsvEntry[0]) + 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return -1;
+        List<T> entries = getCsvList();
+        return Integer.parseInt(entries.get(entries.size()-1).getValues()[0]) + 1;
     }
 }

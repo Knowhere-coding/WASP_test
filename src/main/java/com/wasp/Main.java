@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -18,7 +20,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         this.stage = stage;
 
         stage.setResizable(false);
@@ -31,15 +33,19 @@ public class Main extends Application {
         stage.show();
     }
 
-    public void switchToPage(String pageName) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("pages/" + pageName));
-        Parent root = loader.load();
+    public void switchToPage(String pageName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("pages/" + pageName));
+            Parent root = loader.load();
 
-        BaseController controller = loader.getController();
-        controller.initialize();
-        controller.setMainApp(this);
+            BaseController controller = loader.getController();
+            controller.initialize();
+            controller.setMainApp(this);
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

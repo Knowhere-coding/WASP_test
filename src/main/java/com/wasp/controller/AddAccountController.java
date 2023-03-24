@@ -1,9 +1,10 @@
 package com.wasp.controller;
 
-import com.wasp.data.Entry;
-import com.wasp.handler.CsvHandler;
-import com.wasp.handler.InputValidationHandler;
+import com.wasp.data.AccountData;
+import com.wasp.data.ExpirationEnum;
 import com.wasp.handler.ObservableListHandler;
+import com.wasp.handler.CsvHandler;
+import com.wasp.ui.elements.ValidatingTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -11,16 +12,15 @@ import javafx.scene.paint.Color;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class AddAccountController extends BaseController {
 
     @FXML private ChoiceBox<String> categoryOptions;
-    @FXML private TextField siteNameField;
-    @FXML private TextField urlField;
-    @FXML private Label urlStatusLabel;
-    @FXML private TextField usernameField;
-    @FXML private TextField emailField;
-    @FXML private Label emailStatusLabel;
+    @FXML private ValidatingTextField siteNameField;
+    @FXML private ValidatingTextField urlField;
+    @FXML private ValidatingTextField usernameField;
+    @FXML private ValidatingTextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private TextField passwordTextField;
     @FXML private ProgressBar passwordSecurityBar;
@@ -28,9 +28,11 @@ public class AddAccountController extends BaseController {
     @FXML private ChoiceBox<String> expirationOptions;
     @FXML private Label statusLabel;
 
-    private CsvHandler csvHandler;
-    private TextField[] textFields;
+    private ValidatingTextField[] validatingTextFields;
     private ChoiceBox[] choiceBoxes;
+
+    private final String invalidFieldStyle = "-fx-border-width: 2px; -fx-border-radius: 2px; -fx-border-color: rgba(255, 0, 0, 0.8);";
+    private final String defaultFieldStyle = "-fx-border-width: 0px; -fx-border-radius: 0px; -fx-border-color: transparent;";
 
     @Override
     public void initialize() {
@@ -38,23 +40,25 @@ public class AddAccountController extends BaseController {
         categoryOptions.setItems(ObservableListHandler.getObservableList(categories));
         categoryOptions.setValue("Category");
 
-        List<String> expiration = new ArrayList<>(Arrays.asList("never", "daily", "weekly", "monthly", "quarterly", "half-yearly", "yearly"));
-        expirationOptions.setItems(ObservableListHandler.getObservableList(expiration));
+        List<String> expirationLabels = ExpirationEnum.getAllLabels();
+        expirationOptions.setItems(ObservableListHandler.getObservableList(expirationLabels));
         expirationOptions.setValue("monthly");
 
-        textFields = new TextField[]{siteNameField, urlField, usernameField, emailField, passwordField, passwordTextField};
+        validatingTextFields = new ValidatingTextField[]{siteNameField, urlField, usernameField, emailField};
         choiceBoxes = new ChoiceBox[]{categoryOptions, expirationOptions};
+
+        setValidations();
     }
 
-    public void onLogoutButtonPressed() throws Exception {
+    public void onLogoutButtonPressed() {
         mainApp.switchToPage("login_page.fxml");
     }
 
-    public void onHomeButtonPressed() throws Exception {
+    public void onHomeButtonPressed() {
         mainApp.switchToPage("main_page.fxml");
     }
 
-    public void onAddAccountButtonPressed() throws Exception {
+    public void onAddAccountButtonPressed() {
         mainApp.switchToPage("add_account_page.fxml");
     }
 
@@ -75,41 +79,58 @@ public class AddAccountController extends BaseController {
 
     public void onSaveButtonPressed() {
         if (checkAllInputs()) {
-            addNewAccount();
-
             statusLabel.setTextFill(Color.rgb(248, 182, 7));
             statusLabel.setText("Account added successfully!");
 
+            addNewAccount();
             clearAddAccountForm();
         } else {
             statusLabel.setTextFill(Color.rgb(255, 0, 0));
             statusLabel.setText("Invalid Inputs!");
+
+            Arrays.stream(validatingTextFields).forEach(ValidatingTextField::checkInput);
         }
+    }
+
+    private void setValidations() {
+        // siteName validation
+        siteNameField.setValidation(siteName -> !siteName.trim().isEmpty());
+
+        // url validation
+        urlField.setValidation(url -> {
+            String urlRegex = "^(https?://)?([a-zA-Z0-9]+([\\-\\.][a-zA-Z0-9]+)*\\.[a-zA-Z]{2,63}(:[0-9]{1,5})?)(/[a-zA-Z0-9\\-\\._\\?\\,\\'/\\\\\\+&amp;%\\$#\\=~]*)?$";
+            Pattern pattern = Pattern.compile(urlRegex);
+            return pattern.matcher(url).matches();
+        });
+
+        // username validation
+        usernameField.setValidation(username -> !username.trim().isEmpty());
+
+        // email validation
+        emailField.setValidation(email -> {
+            String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+            Pattern pattern = Pattern.compile(emailRegex);
+            return pattern.matcher(email).matches();
+        });
     }
 
     private boolean checkAllInputs() {
         boolean validInputs = true;
 
-        // Check for empty inputs
-        for (TextField textField : textFields) {
-            if (InputValidationHandler.isEmptyTextField(textField)) {
-                validInputs = false;
-            }
-        }
-
         for (ChoiceBox choiceBox : choiceBoxes) {
-            if (InputValidationHandler.isEmptyChoiceBox(choiceBox)) {
+            if (choiceBox.getSelectionModel().getSelectedIndex() == -1) {
+                choiceBox.setStyle(invalidFieldStyle);
                 validInputs = false;
+            } else {
+                choiceBox.setStyle(defaultFieldStyle);
             }
         }
 
-        // validate url
-        if (!InputValidationHandler.isValidUrl(urlField, urlStatusLabel)) {
+        if (passwordField.getText().isEmpty() && passwordTextField.getText().isEmpty()) {
             validInputs = false;
         }
 
-        // validate email
-        if (!InputValidationHandler.isValidEmail(emailField, emailStatusLabel)) {
+        if (!Arrays.stream(validatingTextFields).allMatch(validatingTextField -> validatingTextField.getIsValidProperty().get())) {
             validInputs = false;
         }
 
@@ -117,18 +138,28 @@ public class AddAccountController extends BaseController {
     }
 
     private void addNewAccount() {
-        File csvFile = new File(Objects.requireNonNull(getClass().getResource("account_data.csv")).getFile());
-        csvHandler = new CsvHandler(csvFile);
+        File csvFile = new File(Objects.requireNonNull(getClass().getResource("/com/wasp/data/account_data.csv")).getFile());
+        CsvHandler<AccountData> csvHandler = new CsvHandler<>(csvFile, AccountData.class);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = dateFormat.format(new Date());
 
-        Entry entry = new Entry(csvHandler.getNextIndex(), siteNameField.getText(), urlField.getText(), usernameField.getText(), emailField.getText(), passwordField.getText(), dateString, expirationOptions.getSelectionModel().getSelectedItem(), categoryOptions.getSelectionModel().getSelectedItem());
-        csvHandler.saveNewEntry(entry);
+        AccountData entry = new AccountData(csvHandler.getNextIndex(),
+                siteNameField.getText(),
+                urlField.getText(),
+                usernameField.getText(),
+                emailField.getText(),
+                passwordField.getText(),
+                dateString,
+                ExpirationEnum.fromLabel(expirationOptions.getSelectionModel().getSelectedItem()).getValue(),
+                categoryOptions.getSelectionModel().getSelectedItem()
+        );
+
+        csvHandler.addEntry(entry);
     }
 
     private void clearAddAccountForm() {
-        Arrays.stream(textFields).forEach(TextInputControl::clear);
+        Arrays.stream(validatingTextFields).forEach(ValidatingTextField::clear);
         categoryOptions.setValue("Category");
         expirationOptions.setValue("monthly");
 
