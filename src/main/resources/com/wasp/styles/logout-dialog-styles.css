@@ -1,0 +1,16 @@
+/* Logout Dialog Styles */
+
+/* Logout Dialog */
+.logout-dialog {
+    -fx-background-color: #404040;
+    -fx-border-color: #F8B607;
+    -fx-border-width: 3px;
+    -fx-border-radius: 3px;
+}
+
+/* Login Field */
+.login-field {
+    -fx-background-color: #323232;
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 20px;
+}

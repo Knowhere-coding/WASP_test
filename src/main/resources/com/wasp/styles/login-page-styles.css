@@ -1,0 +1,30 @@
+/* Login Page Styles */
+
+/* Login Button */
+.login-button {
+    -fx-background-color: #323232;
+    -fx-text-fill: #F8B607;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.login-button:hover {
+    -fx-background-color: #363636;
+}
+
+.login-button:focused {
+    -fx-background-color: #363636;
+}
+
+/* Login Field */
+.login-field {
+    -fx-background-color: #323232;
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 20px;
+}
+
+/* Text Area */
+.text-area {
+    -fx-fill: #CCCCCC;
+    -fx-font-size: 20px;
+}

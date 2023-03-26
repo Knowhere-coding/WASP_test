@@ -8,7 +8,7 @@ import java.util.TimerTask;
 public class InactivityTimer {
     private static final InactivityTimer INSTANCE = new InactivityTimer();
     private Timer timer = new Timer();
-    private final int INACTIVITY_PERIOD = 10*1000;
+    private final int INACTIVITY_PERIOD = 120*1000;
 
     private InactivityTimer() {}
 

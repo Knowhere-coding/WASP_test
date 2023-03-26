@@ -1,9 +1,29 @@
+/* Add Account Page Styles */
+
 /* Save Button */
 .save-button {
     -fx-background-color: #404040;
     -fx-text-fill: #F8B607;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
 }
 
 .save-button:hover {
     -fx-background-color: #363636;
+}
+
+.save-button:focused {
+    -fx-background-color: #363636;
+}
+
+/* Password Security Bar */
+.password-security-bar .bar {
+    -fx-background-color: #F8B607;
+}
+
+.password-security-bar .track {
+    -fx-background-color: #505050;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2px;
+    -fx-border-color: #404040;
 }

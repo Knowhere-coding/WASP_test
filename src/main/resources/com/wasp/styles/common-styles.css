@@ -1,9 +1,32 @@
-/* Styles */
+/* Common Styles */
+
+/* Left-Hand-Navi */
+.common-lhn {
+    -fx-background-color: #404040;
+    -fx-border-color: #363636;
+    -fx-border-width: 0 8px 0 0;
+}
+
+/* Content Section */
+.common-content-section {
+    -fx-background-color: #323232;
+}
+
+/* Content */
+.common-content {
+    -fx-background-color: #404040;
+    -fx-background-insets: 6px;
+    -fx-border-color: #363636;
+    -fx-border-width: 6px;
+    -fx-border-radius: 10px;
+}
 
 /* Buttons */
 .common-button {
     -fx-background-color: #323232;
     -fx-text-fill: #F8B607;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
 }
 
 .common-button:hover {
@@ -27,6 +50,25 @@
     -fx-font-size: 15px;
 }
 
+/* Heading Label */
+.common-heading1-label {
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 35px;
+    -fx-font-weight: bold;
+}
+
+.common-heading2-label {
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+}
+
+.common-heading3-label {
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
 /* Status Label */
 .common-status-label {
     -fx-text-fill: #FF0000;
@@ -37,11 +79,7 @@
 .common-text-field {
     -fx-background-color: #323232;
     -fx-text-fill: #CCCCCC;
-}
-
-.searchbar {
-    -fx-background-color: #505050;
-    -fx-text-fill: #CCCCCC
+    -fx-font-size: 15px;
 }
 
 /* Choice Box */
@@ -83,16 +121,4 @@
 
 .common-check-box:selected .box {
     -fx-background-color: #454545;
-}
-
-/* Progress Bar */
-.progress-bar .bar {
-    -fx-background-color: #F8B607;
-}
-
-.progress-bar .track {
-    -fx-background-color: #505050;
-    -fx-border-width: 2px;
-    -fx-border-radius: 2px;
-    -fx-border-color: #404040;
 }

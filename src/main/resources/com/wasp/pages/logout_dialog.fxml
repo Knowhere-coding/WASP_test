@@ -8,45 +8,25 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.control.Dialog?>
 
 <Dialog fx:id="logoutDialog" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wasp.controller.InactivityDialogController">
    <dialogPane>
-      <DialogPane fx:id="dialogPane" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #404040; -fx-border-width: 5; -fx-border-color: #F8B607; -fx-border-radius: 5;" stylesheets="@../styles/styles.css">
+      <DialogPane fx:id="dialogPane" prefHeight="200.0" prefWidth="350.0" styleClass="logout-dialog" stylesheets="@../styles/common-styles.css, @../styles/logout-dialog-styles.css">
          <content>
             <AnchorPane>
-               <TextField fx:id="usernameField" layoutX="10.0" layoutY="10.0" promptText="Username" styleClass="common-text-field" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
-                  <font>
-                     <Font size="20.0" />
-                  </font>
-               </TextField>
-               <PasswordField fx:id="passwordField" layoutX="10.0" layoutY="64.0" promptText="Password" styleClass="common-text-field" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
-                  <font>
-                     <Font size="20.0" />
-                  </font>
-               </PasswordField>
+               <TextField fx:id="usernameField" layoutX="10.0" layoutY="10.0" promptText="Username" styleClass="login-field" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0"/>
+               <PasswordField fx:id="passwordField" layoutX="10.0" layoutY="64.0" promptText="Password" styleClass="login-field" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
                <ButtonBar layoutX="10.0" layoutY="120.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0">
                   <buttons>
-                     <Button alignment="CENTER" onAction="#onLoginButtonPressed" styleClass="common-button" text="Login">
-                        <font>
-                           <Font name="System Bold" size="15.0" />
-                        </font>
-                     </Button>
-                     <Button alignment="CENTER" onAction="#onLogoutButtonPressed" styleClass="common-button" text="Logout">
-                        <font>
-                           <Font name="System Bold" size="15.0" />
-                        </font>
-                     </Button>
+                     <Button alignment="CENTER" onAction="#onLoginButtonPressed" styleClass="common-button" text="Login"/>
+                     <Button alignment="CENTER" onAction="#onLogoutButtonPressed" styleClass="common-button" text="Logout"/>
                   </buttons>
                </ButtonBar>
             </AnchorPane>
          </content>
          <header>
-            <Label alignment="CENTER" text="You have been logged out!" textAlignment="CENTER" textFill="#cccccc">
-               <font>
-                  <Font size="25.0" />
-               </font>
+            <Label alignment="CENTER" text="You have been logged out!" styleClass="common-heading2-label" textAlignment="CENTER">
                <padding>
                   <Insets top="20.0" />
                </padding>

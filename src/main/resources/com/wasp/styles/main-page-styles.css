@@ -1,5 +1,11 @@
 /* Main Page Styles */
 
+/* Searchbar */
+.searchbar {
+    -fx-background-color: #505050;
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 15px;
+}
 
 /* Table View */
 .table-view {
@@ -8,16 +14,13 @@
 }
 
 /* Table Cell */
-
 .table-cell {
     -fx-text-fill: #F8B607;
     -fx-border-color: transparent;
     -fx-border-width: 5px;
 }
 
-
 /* Table Header */
-
 .column-header {
     -fx-background-color: #808080;
     -fx-border-color: #404040;
@@ -37,9 +40,7 @@
     -fx-background-color: transparent;
 }
 
-
 /* Table Row */
-
 .table-row-cell {
     -fx-background-color: #404040;
 }
@@ -57,9 +58,7 @@
     -fx-text-fill: #000000;
 }
 
-
 /* Scroll Bar */
-
 .scroll-bar:vertical, .scroll-bar:horizontal {
     -fx-background-color: #404040;
 }
@@ -67,4 +66,3 @@
 .scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
     -fx-background-color: #323232;
 }
-

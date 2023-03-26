@@ -163,6 +163,7 @@ public class AddAccountController extends BaseController {
         categoryOptions.setValue("Category");
         expirationOptions.setValue("monthly");
 
+        passwordField.clear();
         passwordTextField.setText(".");
         passwordTextField.setVisible(false);
         passwordSecurityBar.setProgress(0);
