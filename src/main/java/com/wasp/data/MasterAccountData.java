@@ -1,14 +1,22 @@
 package com.wasp.data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MasterAccountData implements BaseData {
     private String masterUsername;
     private String masterPassword;
+    private String textMasterPassword;
+    private String hiddenMasterPassword;
 
     public MasterAccountData() {}
 
     public MasterAccountData(String masterUsername, String masterPassword) {
         this.masterUsername = masterUsername;
+
         this.masterPassword = masterPassword;
+        this.textMasterPassword = masterPassword;
+        this.hiddenMasterPassword = masterPassword.replaceAll(".", "*");
     }
 
     public String getMasterUsername() {
@@ -25,6 +33,8 @@ public class MasterAccountData implements BaseData {
 
     public void setMasterPassword(String masterPassword) {
         this.masterPassword = masterPassword;
+        this.textMasterPassword = masterPassword;
+        this.hiddenMasterPassword = masterPassword.replaceAll(".", "*");
     }
 
     @Override
@@ -41,7 +51,20 @@ public class MasterAccountData implements BaseData {
     }
 
     @Override
+    public Map<String, String> getMappedValues() {
+        return new HashMap<>() {{
+            put("username", masterUsername);
+            put("password", masterPassword);
+        }};
+    }
+
+    @Override
     public void hidePassword() {
-        masterPassword = masterPassword.replaceAll(".", "*");
+        this.masterPassword = hiddenMasterPassword;
+    }
+
+    @Override
+    public void unhidePassword() {
+        this.masterPassword = textMasterPassword;
     }
 }

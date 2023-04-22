@@ -2,8 +2,10 @@ package com.wasp.controller;
 
 import com.wasp.data.AccountData;
 import com.wasp.data.ExpirationEnum;
+import com.wasp.handler.DataHandler;
 import com.wasp.handler.ObservableListHandler;
 import com.wasp.handler.CsvHandler;
+import com.wasp.handler.ValidationHandler;
 import com.wasp.ui.elements.ValidatingTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,9 +14,8 @@ import javafx.scene.paint.Color;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Pattern;
 
-public class AddAccountController extends BaseController {
+public class AddAccountController extends BaseMainController {
 
     @FXML private ChoiceBox<String> categoryOptions;
     @FXML private ValidatingTextField siteNameField;
@@ -31,9 +32,6 @@ public class AddAccountController extends BaseController {
     private ValidatingTextField[] validatingTextFields;
     private ChoiceBox[] choiceBoxes;
 
-    private final String invalidFieldStyle = "-fx-border-width: 2px; -fx-border-radius: 2px; -fx-border-color: rgba(255, 0, 0, 0.8);";
-    private final String defaultFieldStyle = "-fx-border-width: 0px; -fx-border-radius: 0px; -fx-border-color: transparent;";
-
     @Override
     public void initialize() {
         List<String> categories = new ArrayList<>(Arrays.asList("email", "social media", "gaming", "coding", "shopping", "banking", "education", "private", "other"));
@@ -47,19 +45,8 @@ public class AddAccountController extends BaseController {
         validatingTextFields = new ValidatingTextField[]{siteNameField, urlField, usernameField, emailField};
         choiceBoxes = new ChoiceBox[]{categoryOptions, expirationOptions};
 
+        Arrays.stream(validatingTextFields).forEach(ValidatingTextField::initialize);
         setValidations();
-    }
-
-    public void onLogoutButtonPressed() {
-        mainApp.switchToPage("login_page.fxml");
-    }
-
-    public void onHomeButtonPressed() {
-        mainApp.switchToPage("main_page.fxml");
-    }
-
-    public void onAddAccountButtonPressed() {
-        mainApp.switchToPage("add_account_page.fxml");
     }
 
     public void updatePasswordSecurityBar() {
@@ -94,24 +81,16 @@ public class AddAccountController extends BaseController {
 
     private void setValidations() {
         // siteName validation
-        siteNameField.setValidation(siteName -> !siteName.trim().isEmpty());
+        siteNameField.setValidation(ValidationHandler.SITE_NAME_VALIDATION);
 
         // url validation
-        urlField.setValidation(url -> {
-            String urlRegex = "^(https?://)?([a-zA-Z0-9]+([\\-\\.][a-zA-Z0-9]+)*\\.[a-zA-Z]{2,63}(:[0-9]{1,5})?)(/[a-zA-Z0-9\\-\\._\\?\\,\\'/\\\\\\+&amp;%\\$#\\=~]*)?$";
-            Pattern pattern = Pattern.compile(urlRegex);
-            return pattern.matcher(url).matches();
-        });
+        urlField.setValidation(ValidationHandler.URL_VALIDATION);
 
         // username validation
-        usernameField.setValidation(username -> !username.trim().isEmpty());
+        usernameField.setValidation(ValidationHandler.USERNAME_VALIDATION);
 
         // email validation
-        emailField.setValidation(email -> {
-            String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-            Pattern pattern = Pattern.compile(emailRegex);
-            return pattern.matcher(email).matches();
-        });
+        emailField.setValidation(ValidationHandler.EMAIL_VALIDATION);
     }
 
     private boolean checkAllInputs() {
@@ -119,10 +98,10 @@ public class AddAccountController extends BaseController {
 
         for (ChoiceBox choiceBox : choiceBoxes) {
             if (choiceBox.getSelectionModel().getSelectedIndex() == -1) {
-                choiceBox.setStyle(invalidFieldStyle);
+                choiceBox.getStyleClass().add("common-invalid-style");
                 validInputs = false;
             } else {
-                choiceBox.setStyle(defaultFieldStyle);
+                choiceBox.getStyleClass().remove("common-invalid-style");
             }
         }
 
@@ -144,12 +123,14 @@ public class AddAccountController extends BaseController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = dateFormat.format(new Date());
 
-        AccountData entry = new AccountData(csvHandler.getNextIndex(),
+        AccountData entry = new AccountData(
+                DataHandler.getNextAccountIndex(),
                 siteNameField.getText(),
                 urlField.getText(),
                 usernameField.getText(),
                 emailField.getText(),
                 passwordField.getText(),
+                "",
                 dateString,
                 ExpirationEnum.fromLabel(expirationOptions.getSelectionModel().getSelectedItem()).getValue(),
                 categoryOptions.getSelectionModel().getSelectedItem()

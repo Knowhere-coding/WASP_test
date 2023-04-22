@@ -1,0 +1,141 @@
+/* Account Details Styles */
+
+/* Buttons */
+.action-button {
+    -fx-background-color: #404040;
+    -fx-text-fill: #F8B607;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.action-button:hover {
+    -fx-background-color: #363636;
+}
+
+.open-url-button {
+    -fx-background-color: #383838;
+    -fx-text-fill: #F8B607;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.open-url-button:hover {
+    -fx-background-color: #363636;
+}
+
+.open-url-button-error {
+    -fx-opacity: 1;
+    -fx-border-color: #FF0000;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2px;
+}
+
+/* Account Detail Label */
+.account-detail-label {
+    -fx-fill: #CCCCCC;
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* Text Fields */
+.account-field {
+    -fx-background-color: #3D3D3D;
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 18px;
+}
+
+.account-field:disabled {
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: transparent;
+    -fx-opacity: 1;
+}
+
+.account-field:focused {
+    -fx-background-color: #323232;
+}
+
+.account-field-empty {
+    -fx-text-fill: transparent;
+}
+
+/* Choice Box */
+.account-choice-box {
+    -fx-background-color: #3D3D3D;
+}
+
+.account-choice-box:disabled {
+    -fx-background-color: transparent;
+    -fx-opacity: 1;
+}
+
+.account-choice-box:focused {
+    -fx-background-color: #323232;
+}
+
+.account-choice-box > .label {
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 18px;
+}
+
+.account-choice-box > .label:disabled {
+    -fx-opacity: 1;
+}
+
+.account-choice-box .context-menu {
+    -fx-background-color: #383838;
+}
+
+.account-choice-box .menu-item:focused {
+    -fx-background-color: rgba(248, 182, 7, 0.75);
+}
+
+.account-choice-box .menu-item > .label {
+    -fx-text-fill: #CCCCCC;
+}
+
+.account-choice-box .menu-item:focused > .label {
+    -fx-text-fill: #000000;
+}
+
+.account-choice-box:disabled .arrow {
+    -fx-background-color: transparent;
+}
+
+/* Account Detail Text */
+.account-detail {
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 18px;
+}
+
+/* Account Details Table */
+.account-details-row {
+    -fx-border-color: rgba(57, 57, 57, 0.5);
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-radius: 2px;
+}
+
+/* Text Area */
+.additional-information-text-area {
+    -fx-background-color: transparent;
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 15px;
+}
+
+.additional-information-text-area:disabled {
+    -fx-prompt-text-fill: transparent;
+    -fx-opacity: 1;
+}
+
+.additional-information-text-area .content {
+    -fx-background-color: #3D3D3D;
+    -fx-border-color: #404040;
+}
+
+.additional-information-text-area .content:disabled {
+    -fx-background-color: #404040;
+}
+
+.additional-information-text-area:focused .content {
+    -fx-background-color: #323232;
+}

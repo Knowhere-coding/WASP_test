@@ -5,6 +5,8 @@ import com.wasp.data.MasterAccountData;
 import com.wasp.handler.CsvHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.File;
 import java.util.Objects;
@@ -15,7 +17,15 @@ public class LoginController extends BaseController {
     @FXML private TextField passwordField;
     @FXML private Label loginStatus;
 
-    public void onLoginButtonPressed() {
+    @FXML
+    private void onEnterPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            onLoginButtonPressed();
+        }
+    }
+
+    @FXML
+    private void onLoginButtonPressed() {
         File csvFile = new File(Objects.requireNonNull(getClass().getResource("/com/wasp/data/master_account_data.csv")).getFile());
         CsvHandler<MasterAccountData> csvHandler = new CsvHandler<>(csvFile, MasterAccountData.class);
 

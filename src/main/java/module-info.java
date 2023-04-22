@@ -3,6 +3,7 @@ module com.wasp.javafx {
     requires javafx.fxml;
     requires com.opencsv;
     requires java.sql;
+    requires java.desktop;
 
     exports com.wasp;
     opens com.wasp to javafx.fxml;

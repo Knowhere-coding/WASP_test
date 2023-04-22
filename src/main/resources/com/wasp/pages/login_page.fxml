@@ -16,11 +16,11 @@
          <ImageView fitHeight="150.0" fitWidth="400.0" layoutX="5.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0">
             <Image url="@../images/WASP_banner.png" />
          </ImageView>
-         <Label alignment="CENTER" layoutX="100.0" layoutY="312.0" text="Login" textAlignment="CENTER" styleClass="common-heading1-label" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0"/>
-         <TextField fx:id="usernameField" layoutX="125.0" layoutY="389.0" promptText="Username" styleClass="login-field" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0"/>
-         <PasswordField fx:id="passwordField" layoutX="125.0" layoutY="444.0" promptText="Password" styleClass="login-field" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0"/>
-         <Button fx:id="loginButton" layoutX="200.0" layoutY="520.0" mnemonicParsing="false" onAction="#onLoginButtonPressed" styleClass="login-button" text="Login" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0"/>
-         <Label fx:id="loginStatus" alignment="CENTER" layoutX="100.0" layoutY="653.0" textAlignment="CENTER" styleClass="common-label" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0"/>
+         <Label alignment="CENTER" layoutX="100.0" layoutY="312.0" styleClass="common-heading1-label" text="Login" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+         <TextField fx:id="usernameField" layoutX="125.0" layoutY="389.0" onKeyPressed="#onEnterPressed" promptText="Username" styleClass="login-field" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" />
+         <PasswordField fx:id="passwordField" layoutX="125.0" layoutY="444.0" onKeyPressed="#onEnterPressed" promptText="Password" styleClass="login-field" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" />
+         <Button fx:id="loginButton" layoutX="200.0" layoutY="520.0" mnemonicParsing="false" onAction="#onLoginButtonPressed" styleClass="login-button" text="Login" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" />
+         <Label fx:id="loginStatus" alignment="CENTER" layoutX="100.0" layoutY="653.0" styleClass="common-label" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
       </AnchorPane>
       <AnchorPane prefHeight="800.0" prefWidth="800.0" styleClass="common-content-section">
          <Text layoutX="55.0" layoutY="566.0" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-area" text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." textAlignment="JUSTIFY" wrappingWidth="680.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="54.0" />

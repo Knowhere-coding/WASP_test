@@ -10,7 +10,11 @@
 /* Table View */
 .table-view {
     -fx-background-color: #404040;
+    -fx-background-radius: 5px;
     -fx-border-color: #404040;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 15px;
 }
 
 /* Table Cell */
@@ -40,6 +44,10 @@
     -fx-background-color: transparent;
 }
 
+.corner {
+    -fx-background-color: transparent;
+}
+
 /* Table Row */
 .table-row-cell {
     -fx-background-color: #404040;
@@ -56,13 +64,4 @@
 
 .table-row-cell:selected .table-cell {
     -fx-text-fill: #000000;
-}
-
-/* Scroll Bar */
-.scroll-bar:vertical, .scroll-bar:horizontal {
-    -fx-background-color: #404040;
-}
-
-.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
-    -fx-background-color: #323232;
 }

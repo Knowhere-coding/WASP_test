@@ -23,11 +23,16 @@ public class ValidatingTextField extends VBox {
     private final StringProperty textFieldLabelText = new SimpleStringProperty("");
     private final StringProperty textFieldText = new SimpleStringProperty("");
     private final StringProperty textFieldStatusText = new SimpleStringProperty("");
+    private final StringProperty textFieldLabelStyle = new SimpleStringProperty("");
+    private final StringProperty textFieldStyle = new SimpleStringProperty("");
+    private final StringProperty textFieldStatusStyle = new SimpleStringProperty("");
 
     private final String invalidFieldStyle = "-fx-border-width: 2px; -fx-border-radius: 2px; -fx-border-color: rgba(255, 0, 0, 0.8);";
     private final String defaultFieldStyle = "-fx-border-width: 0px; -fx-border-radius: 0px; -fx-border-color: transparent;";
 
-    public ValidatingTextField() {
+    public ValidatingTextField() {}
+
+    public void initialize() {
         this.validation = s -> true; // default validation always returns true
         isChecked = false;
         buildTextField();
@@ -39,28 +44,32 @@ public class ValidatingTextField extends VBox {
     private void buildTextField() {
         container = new VBox();
 
-        textFieldLabel = new Label();
-        textFieldLabel.textProperty().bind(textFieldLabelText);
-        textFieldLabel.getStyleClass().add("common-label");
-        textFieldLabel.setPadding(new Insets(0, 0, 10.0, 0));
+        if (!textFieldLabelText.get().isEmpty()) {
+            textFieldLabel = new Label();
+            textFieldLabel.textProperty().bind(textFieldLabelText);
+            textFieldLabel.getStyleClass().add(textFieldLabelStyle.get());
+            textFieldLabel.setPadding(new Insets(0, 0, 10.0, 0));
+            container.getChildren().add(textFieldLabel);
+        }
 
         textField = new TextField();
         textField.setPrefWidth(container.getPrefWidth());
         textField.setPrefHeight(container.getPrefHeight());
         textField.setPadding(new Insets(10.0));
-
         textField.promptTextProperty().bind(textFieldText);
-        textField.getStyleClass().add("common-text-field");
+        textField.getStyleClass().add(textFieldStyle.get());
         textField.setStyle(defaultFieldStyle);
         textField.setFont(new Font(15));
+        container.getChildren().addAll(textField);
 
-        textFieldStatus = new Label();
-        textFieldStatus.textProperty().bind(textFieldStatusText);
-        textFieldStatus.getStyleClass().add("common-status-label");
-        textFieldStatus.setPadding(new Insets(2.0, 0, 0, 0));
-        textFieldStatus.setVisible(false);
-
-        container.getChildren().addAll(textFieldLabel, textField, textFieldStatus);
+        if (!textFieldStatusText.get().isEmpty()) {
+            textFieldStatus = new Label();
+            textFieldStatus.textProperty().bind(textFieldStatusText);
+            textFieldStatus.getStyleClass().add(textFieldStatusStyle.get());
+            textFieldStatus.setPadding(new Insets(2.0, 0, 0, 0));
+            textFieldStatus.setVisible(false);
+            container.getChildren().add(textFieldStatus);
+        }
 
         getChildren().add(container);
     }
@@ -85,11 +94,15 @@ public class ValidatingTextField extends VBox {
 
     private void setTextFieldStatusStyle() {
         if (isValidProperty.get()) {
+            if (!textFieldStatusText.get().isEmpty()) {
+                textFieldStatus.setVisible(false);
+            }
             textField.setStyle(defaultFieldStyle);
-            textFieldStatus.setVisible(false);
         } else {
+            if (!textFieldStatusText.get().isEmpty()) {
+                textFieldStatus.setVisible(true);
+            }
             textField.setStyle(invalidFieldStyle);
-            textFieldStatus.setVisible(true);
         }
     }
 
@@ -105,6 +118,14 @@ public class ValidatingTextField extends VBox {
 
     public BooleanProperty getIsValidProperty() {
         return isValidProperty;
+    }
+
+    public void addTextFieldStyle(String style) {
+        textField.getStyleClass().add(style);
+    }
+
+    public void removeTextFieldStyle(String style) {
+        textField.getStyleClass().remove(style);
     }
 
     public String getText() {
@@ -155,5 +176,41 @@ public class ValidatingTextField extends VBox {
 
     public StringProperty textFieldStatusTextProperty() {
         return textFieldStatusText;
+    }
+
+    public String getTextFieldLabelStyle() {
+        return textFieldLabelStyle.get();
+    }
+
+    public void setTextFieldLabelStyle(String textFieldLabelStyle) {
+        this.textFieldLabelStyle.set(textFieldLabelStyle);
+    }
+
+    public StringProperty textFieldLabelStyleProperty() {
+        return textFieldLabelStyle;
+    }
+
+    public String getTextFieldStyle() {
+        return textFieldStyle.get();
+    }
+
+    public void setTextFieldStyle(String textFieldStyle) {
+        this.textFieldStyle.set(textFieldStyle);
+    }
+
+    public StringProperty textFieldStyleProperty() {
+        return textFieldStyle;
+    }
+
+    public String getTextFieldStatusStyle() {
+        return textFieldStatusStyle.get();
+    }
+
+    public void setTextFieldStatusStyle(String textFieldStatusStyle) {
+        this.textFieldStatusStyle.set(textFieldStatusStyle);
+    }
+
+    public StringProperty textFieldStatusStyleProperty() {
+        return textFieldStatusStyle;
     }
 }

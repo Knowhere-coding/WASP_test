@@ -80,11 +80,17 @@
     -fx-background-color: #323232;
     -fx-text-fill: #CCCCCC;
     -fx-font-size: 15px;
+    -fx-border-width: 0px;
+    -fx-border-radius: 0px;
+    -fx-border-color: transparent;
 }
 
 /* Choice Box */
 .common-choice-box {
     -fx-background-color: #505050;
+    -fx-border-width: 0px;
+    -fx-border-radius: 0px;
+    -fx-border-color: transparent;
 }
 
 .common-choice-box > .label {
@@ -121,4 +127,47 @@
 
 .common-check-box:selected .box {
     -fx-background-color: #454545;
+}
+
+/* Scroll Bar */
+.scroll-bar {
+    -fx-background-color: #404040;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #323232;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-button:hover,
+.scroll-bar .decrement-button:hover {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-button:hover .increment-arrow,
+.scroll-bar .decrement-button:hover .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-border-color: #F8B607;
+}
+
+/* Text Area */
+.common-text-area {
+    -fx-background-color: transparent;
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 15px;
+}
+
+.common-text-area .content {
+    -fx-background-color: #323232;
+    -fx-border-color: #404040;
+}
+
+/* Invalid Input */
+.common-invalid-style {
+    -fx-border-width: 2px;
+    -fx-border-radius: 2px;
+    -fx-border-color: rgba(255, 0, 0, 0.8);
 }

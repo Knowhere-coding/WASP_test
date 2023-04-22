@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 
@@ -21,6 +23,13 @@ public class InactivityDialogController extends BaseController {
         logoutDialog.initStyle(StageStyle.UNDECORATED);
     }
 
+    @FXML
+    private void onEnterPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            onLoginButtonPressed();
+        }
+    }
+
     public void showDialog(Scene scene) {
         logoutDialog.initOwner(scene.getWindow());
         logoutDialog.initModality(Modality.APPLICATION_MODAL);
@@ -29,7 +38,8 @@ public class InactivityDialogController extends BaseController {
         logoutDialog.showAndWait();
     }
 
-    public void onLoginButtonPressed() {
+    @FXML
+    private void onLoginButtonPressed() {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -42,7 +52,8 @@ public class InactivityDialogController extends BaseController {
         }
     }
 
-    public void onLogoutButtonPressed() {
+    @FXML
+    private void onLogoutButtonPressed() {
         dialogPane.getScene().getWindow().hide();
         mainApp.switchToPage("login_page.fxml");
     }

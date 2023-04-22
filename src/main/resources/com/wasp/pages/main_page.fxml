@@ -26,47 +26,37 @@
             <ChoiceBox fx:id="searchOptions" layoutX="1020.0" layoutY="49.0" onAction="#getSearchOutput" prefHeight="30.0" prefWidth="130.0" styleClass="common-choice-box" AnchorPane.leftAnchor="1020.0" AnchorPane.rightAnchor="50.0" />
             <TableView fx:id="accountTable" layoutX="50.0" layoutY="50.0" onMouseClicked="#onAccountSelected" prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
                 <columns>
-                    <TableColumn minWidth="30.0" prefWidth="30.0" resizable="false" text="ID">
+                    <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="50.0" resizable="false" text="ID">
                         <cellValueFactory>
                             <PropertyValueFactory property="id" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn minWidth="75.0" prefWidth="100.0" resizable="false" text="siteName">
+                    <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="125.0" resizable="false" text="siteName">
                         <cellValueFactory>
                             <PropertyValueFactory property="siteName" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn minWidth="50.0" prefWidth="200.0" resizable="false" text="url">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="url" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn minWidth="50.0" prefWidth="100.0" resizable="false" text="username">
+                    <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="125.0" resizable="false" text="username">
                         <cellValueFactory>
                             <PropertyValueFactory property="username" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn minWidth="50.0" prefWidth="155.0" resizable="false" text="email">
+                    <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="215.0" resizable="false" text="email">
                         <cellValueFactory>
                             <PropertyValueFactory property="email" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn minWidth="150.0" prefWidth="250.0" resizable="false" text="password">
+                    <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="300.0" resizable="false" text="password">
                         <cellValueFactory>
                             <PropertyValueFactory property="password" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn minWidth="125.0" prefWidth="125.0" resizable="false" text="changeDate">
+                    <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="155.0" resizable="false" text="changeDate">
                         <cellValueFactory>
                             <PropertyValueFactory property="changeDate" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn minWidth="45.0" prefWidth="45.0" resizable="false" text="expiration">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="expiration" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn minWidth="75.0" prefWidth="75.0" resizable="false" text="category">
+                    <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="100.0" resizable="false" text="category">
                         <cellValueFactory>
                             <PropertyValueFactory property="category" />
                         </cellValueFactory>

@@ -1,5 +1,8 @@
 package com.wasp.data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AccountData implements BaseData {
     private int id;
     private String siteName;
@@ -7,19 +10,28 @@ public class AccountData implements BaseData {
     private String username;
     private String email;
     private String password;
+    private String textPassword;
+    private String hiddenPassword;
     private String changeDate;
     private int expiration;
     private String category;
+    private String additionalInformation;
 
     public AccountData() {}
 
-    public AccountData(int id, String siteName, String url, String username, String email, String password, String changeDate, int expiration, String category) {
+    public AccountData(int id, String siteName, String url, String username, String email, String password, String additionalInformation, String changeDate, int expiration, String category) {
         this.id = id;
         this.siteName = siteName;
         this.url = url;
         this.username = username;
         this.email = email;
+
         this.password = password;
+        this.textPassword = password;
+        this.hiddenPassword = password.replaceAll(".", "*");
+
+        this.additionalInformation = additionalInformation;
+
         this.changeDate = changeDate;
         this.expiration = expiration;
         this.category = category;
@@ -71,6 +83,8 @@ public class AccountData implements BaseData {
 
     public void setPassword(String password) {
         this.password = password;
+        this.textPassword = password;
+        this.hiddenPassword = password.replaceAll(".", "*");
     }
 
     public String getChangeDate() {
@@ -97,6 +111,14 @@ public class AccountData implements BaseData {
         this.category = category;
     }
 
+    public String getAdditionalInformation() {
+        return additionalInformation;
+    }
+
+    public void setAdditionalInformation(String additionalInformation) {
+        this.additionalInformation = additionalInformation;
+    }
+
     @Override
     public String toString() {
         return "OpenCsvEntry{" +
@@ -106,6 +128,7 @@ public class AccountData implements BaseData {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", additionalInformation='" + additionalInformation + '\'' +
                 ", changeDate='" + changeDate + '\'' +
                 ", expiration=" + expiration +
                 ", category='" + category + '\'' +
@@ -114,11 +137,32 @@ public class AccountData implements BaseData {
 
     @Override
     public String[] getValues() {
-        return new String[]{String.valueOf(id), siteName, url, username, email, password, changeDate, String.valueOf(expiration), category};
+        return new String[]{String.valueOf(id), siteName, url, username, email, password, additionalInformation, changeDate, String.valueOf(expiration), category};
+    }
+
+    @Override
+    public Map<String, String> getMappedValues() {
+        return new HashMap<>(){{
+            put("ID", String.valueOf(id));
+            put("siteName", siteName);
+            put("url", url);
+            put("username", username);
+            put("email", email);
+            put("password", password);
+            put("additionalInformation", additionalInformation);
+            put("changeDate", changeDate);
+            put("expiration", String.valueOf(expiration));
+            put("category", category);
+        }};
     }
 
     @Override
     public void hidePassword() {
-        password = password.replaceAll(".", "*");
+        this.password = hiddenPassword;
+    }
+
+    @Override
+    public void unhidePassword() {
+        this.password = textPassword;
     }
 }

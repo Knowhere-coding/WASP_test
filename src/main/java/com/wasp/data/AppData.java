@@ -4,10 +4,13 @@ import com.wasp.handler.InactivityEventHandler;
 import com.wasp.handler.InactivityTimer;
 import javafx.scene.Parent;
 
+import java.util.List;
+
 public class AppData {
     private static final AppData INSTANCE = new AppData();
     private String username;
     private String password;
+    private List<AccountData> accountDataList;
     private AccountData selectedAccount;
     private InactivityTimer inactivityTimer;
     private InactivityEventHandler inactivityEventHandler;
@@ -24,20 +27,28 @@ public class AppData {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public AccountData getSelectedAccount() {
-        return selectedAccount;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<AccountData> getAccountDataList() {
+        return accountDataList;
+    }
+
+    public void setAccountDataList(List<AccountData> accountDataList) {
+        this.accountDataList = accountDataList;
+    }
+
+    public AccountData getSelectedAccount() {
+        return selectedAccount;
     }
 
     public void setSelectedAccount(AccountData selectedAccount) {

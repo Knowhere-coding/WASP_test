@@ -15,8 +15,8 @@
       <DialogPane fx:id="dialogPane" prefHeight="200.0" prefWidth="350.0" styleClass="logout-dialog" stylesheets="@../styles/common-styles.css, @../styles/logout-dialog-styles.css">
          <content>
             <AnchorPane>
-               <TextField fx:id="usernameField" layoutX="10.0" layoutY="10.0" promptText="Username" styleClass="login-field" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0"/>
-               <PasswordField fx:id="passwordField" layoutX="10.0" layoutY="64.0" promptText="Password" styleClass="login-field" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
+               <TextField fx:id="usernameField" layoutX="10.0" layoutY="10.0" onKeyPressed="#onEnterPressed" promptText="Username" styleClass="login-field" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0"/>
+               <PasswordField fx:id="passwordField" layoutX="10.0" layoutY="64.0" onKeyPressed="#onEnterPressed" promptText="Password" styleClass="login-field" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
                <ButtonBar layoutX="10.0" layoutY="120.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0">
                   <buttons>
                      <Button alignment="CENTER" onAction="#onLoginButtonPressed" styleClass="common-button" text="Login"/>
