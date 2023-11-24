@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="main_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" stylesheets="@../styles/common-styles.css, @../styles/backup-page-styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wasp.controller.BackupController">
+    <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="common-lhn">
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="25.0">
+                <Image url="@../images/WASP.png" />
+            </ImageView>
+            <VBox layoutX="40.0" layoutY="200.0" spacing="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+                <Button fx:id="homeButton" mnemonicParsing="false" onAction="#onHomeButtonPressed" prefHeight="31.0" prefWidth="120.0" styleClass="common-button" text="Home" />
+                <Button fx:id="addAccountButton" mnemonicParsing="false" onAction="#onAddAccountButtonPressed" prefHeight="31.0" prefWidth="120.0" styleClass="common-button" text="Add Account" />
+                <Button fx:id="backupButton" disable="true" mnemonicParsing="false" onAction="#onBackupButtonPressed" prefHeight="31.0" prefWidth="120.0" styleClass="common-button" text="Backup" />
+            </VBox>
+            <Button fx:id="logoutButton" layoutX="74.0" layoutY="761.0" mnemonicParsing="false" onAction="#onLogoutButtonPressed" styleClass="common-button" text="Logout" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+        </AnchorPane>
+        <AnchorPane prefHeight="800.0" prefWidth="1200.0" styleClass="common-content-section">
+            <Label alignment="CENTER" layoutX="301.0" layoutY="24.0" prefHeight="100.0" prefWidth="598.0" styleClass="common-heading1-label" text="Backup" textAlignment="CENTER" />
+            <AnchorPane layoutX="209.0" layoutY="269.0" styleClass="common-content" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="150.0">
+                <AnchorPane layoutX="46.0" layoutY="55.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="50.0">
+                    <HBox layoutY="-1.0" spacing="3.0" AnchorPane.topAnchor="0.0">
+                        <TextField fx:id="backupFileNameField" onKeyPressed="#onEnterPressed" prefHeight="31.0" prefWidth="200.0" promptText="fileName" styleClass="common-text-field" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSaveButtonPressed" prefHeight="31.0" prefWidth="58.0" styleClass="common-button" text="Save" />
+                        <Button fx:id="saveAsButton" mnemonicParsing="false" onAction="#onSaveAsButtonPressed" prefHeight="31.0" prefWidth="75.0" styleClass="common-button" text="Save As" />
+                  <Button fx:id="openButton" mnemonicParsing="false" onAction="#onOpenButtonPressed" prefHeight="31.0" prefWidth="58.0" styleClass="common-button" text="Open" />
+                    </HBox>
+                    <TreeView fx:id="backupFileTreeView" layoutY="31.0" onMouseClicked="#onBackupSelected" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                    <Label fx:id="backupSaveStatusLabel" layoutY="416.0" styleClass="common-label" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" />
+                </AnchorPane>
+                <AnchorPane layoutX="472.0" layoutY="56.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+                    <Label alignment="CENTER" layoutX="124.0" layoutY="41.0" styleClass="common-heading3-label" text="Backup Info" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    <VBox fx:id="backupTableVBox" disable="true" layoutX="14.0" layoutY="42.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="10.0" styleClass="backup-info-row">
+                            <Label minWidth="70.0" prefWidth="70.0" styleClass="backup-info-label" text="Name:" />
+                            <Label fx:id="backupNameLabel" styleClass="backup-info" />
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="10.0" styleClass="backup-info-row">
+                            <Label minWidth="70.0" prefWidth="70.0" styleClass="backup-info-label" text="Location:" />
+                            <Label fx:id="backupLocationLabel" styleClass="backup-info" />
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="10.0" styleClass="backup-info-row">
+                            <Label minWidth="70.0" prefWidth="70.0" styleClass="backup-info-label" text="Date:" />
+                            <Label fx:id="backupDateLabel" styleClass="backup-info" />
+                        </HBox>
+                        <AnchorPane>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                            <HBox alignment="CENTER" layoutX="10.0" layoutY="20.0" spacing="40.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
+                                <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onDeleteButtonPressed" styleClass="common-button" text="Delete" textAlignment="CENTER" />
+                                <Button fx:id="loadBackupButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onLoadBackupButtonPressed" styleClass="common-button" text="Load Backup" textAlignment="CENTER">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </Button>
+                                <Button fx:id="undoLoadBackupButton" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#onUndoLoadBackupButtonPressed" styleClass="common-button" text="Undo" textAlignment="CENTER" visible="false" />
+                            </HBox>
+                            <Label fx:id="backupManageStatusLabel" alignment="CENTER" layoutY="61.0" styleClass="common-label" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        </AnchorPane>
+                    </VBox>
+                </AnchorPane>
+            </AnchorPane>
+        </AnchorPane>
+    </HBox>
+</AnchorPane>

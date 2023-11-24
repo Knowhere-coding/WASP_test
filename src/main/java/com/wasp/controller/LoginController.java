@@ -8,9 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import java.io.File;
-import java.util.Objects;
-
 public class LoginController extends BaseController {
 
     @FXML private TextField usernameField;
@@ -26,8 +23,7 @@ public class LoginController extends BaseController {
 
     @FXML
     private void onLoginButtonPressed() {
-        File csvFile = new File(Objects.requireNonNull(getClass().getResource("/com/wasp/data/master_account_data.csv")).getFile());
-        CsvHandler<MasterAccountData> csvHandler = new CsvHandler<>(csvFile, MasterAccountData.class);
+        CsvHandler<MasterAccountData> csvHandler = new CsvHandler<>(AppData.getInstance().getMasterAccountDataFile(), MasterAccountData.class);
 
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -50,6 +46,8 @@ public class LoginController extends BaseController {
             } else {
                 loginStatus.setText("Wrong username or password!");
             }
+
+            passwordField.setText("");
         }
     }
 }

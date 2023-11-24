@@ -1,0 +1,47 @@
+/* Tree View */
+.tree-view {
+    -fx-background-color: #323232;
+    -fx-text-fill: #CCCCCC;
+}
+
+.tree-cell {
+    -fx-background-color: #323232;
+    -fx-text-fill: #CCCCCC;
+}
+
+.tree-cell .arrow {
+    -fx-background-color: #F8B607;
+    -fx-border-color: #F8B607;
+}
+
+.tree-cell:selected {
+    -fx-background-color: #F8B607;
+    -fx-text-fill: #000000;
+    -fx-opacity: 0.75;
+}
+
+.tree-cell:selected .arrow {
+    -fx-background-color: #000000;
+    -fx-border-color: #000000;
+}
+
+/* Backup Info Table */
+.backup-info-row {
+    -fx-border-color: rgba(57, 57, 57, 0.5);
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-radius: 2px;
+}
+
+/* Backup Info Label */
+.backup-info-label {
+    -fx-fill: #CCCCCC;
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Backup Info Text */
+.backup-info {
+    -fx-text-fill: #CCCCCC;
+    -fx-font-size: 14px;
+}

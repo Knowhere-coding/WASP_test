@@ -6,8 +6,6 @@ import java.util.Map;
 public class MasterAccountData implements BaseData {
     private String masterUsername;
     private String masterPassword;
-    private String textMasterPassword;
-    private String hiddenMasterPassword;
 
     public MasterAccountData() {}
 
@@ -15,8 +13,6 @@ public class MasterAccountData implements BaseData {
         this.masterUsername = masterUsername;
 
         this.masterPassword = masterPassword;
-        this.textMasterPassword = masterPassword;
-        this.hiddenMasterPassword = masterPassword.replaceAll(".", "*");
     }
 
     public String getMasterUsername() {
@@ -33,8 +29,6 @@ public class MasterAccountData implements BaseData {
 
     public void setMasterPassword(String masterPassword) {
         this.masterPassword = masterPassword;
-        this.textMasterPassword = masterPassword;
-        this.hiddenMasterPassword = masterPassword.replaceAll(".", "*");
     }
 
     @Override
@@ -56,15 +50,5 @@ public class MasterAccountData implements BaseData {
             put("username", masterUsername);
             put("password", masterPassword);
         }};
-    }
-
-    @Override
-    public void hidePassword() {
-        this.masterPassword = hiddenMasterPassword;
-    }
-
-    @Override
-    public void unhidePassword() {
-        this.masterPassword = textMasterPassword;
     }
 }

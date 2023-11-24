@@ -17,4 +17,19 @@ public class ValidationHandler {
         Pattern pattern = Pattern.compile(emailRegex);
         return pattern.matcher(email).matches();
     };
+
+    public static final Predicate<String> PASSWORD_VALIDATION = password -> {
+        if (password.length() < 12) {
+            return false;
+        } else if (!password.matches(".*\\d.*")) {
+            return false;
+        } else if (!password.matches(".*[A-Z].*")) {
+            return false;
+        } else if (!password.matches(".*[a-z].*")) {
+            return false;
+        } else if (!password.matches(".*[-!#$%&'()*+./:;<=>?@^_`{|}~\\]\\[].*")) {
+            return false;
+        }
+        return true;
+    };
 }

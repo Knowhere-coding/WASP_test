@@ -17,4 +17,9 @@ public class BaseMainController extends BaseController {
     private void onAddAccountButtonPressed() {
         mainApp.switchToPage("add_account_page.fxml");
     }
+
+    @FXML
+    private void onBackupButtonPressed() {
+        mainApp.switchToPage("backup_page.fxml");
+    }
 }

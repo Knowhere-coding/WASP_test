@@ -171,3 +171,15 @@
     -fx-border-radius: 2px;
     -fx-border-color: rgba(255, 0, 0, 0.8);
 }
+
+/* Password Security Bar */
+.common-password-security-bar .bar {
+    -fx-background-color: #F8B607;
+}
+
+.common-password-security-bar .track {
+    -fx-background-color: #505050;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2px;
+    -fx-border-color: #404040;
+}

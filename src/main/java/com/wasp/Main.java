@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -32,7 +33,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        setupConfigData();
+
         this.stage = stage;
+        AppData.getInstance().setStage(stage);
 
         stage.setResizable(false);
         stage.setTitle("WASP - Password Manager");
@@ -104,5 +108,12 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setupConfigData() {
+        AppData.getInstance().setInactivityPeriod(2 * 60 * 1000); // 2min;
+        AppData.getInstance().setMasterAccountDataFile(new File("data" + File.separator + "master_account_data.csv"));
+        AppData.getInstance().setAccountDataFile(new File("data" + File.separator + "account_data.csv"));
+        AppData.getInstance().setBackupDirectory(new File("backup"));
     }
 }

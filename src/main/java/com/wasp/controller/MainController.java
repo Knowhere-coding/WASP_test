@@ -6,28 +6,24 @@ import com.wasp.handler.ObservableListHandler;
 import com.wasp.handler.CsvHandler;
 import com.wasp.handler.DataHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumnBase;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class MainController extends BaseMainController {
 
     @FXML private TextField searchField;
     @FXML private ChoiceBox<String> searchOptions;
     @FXML private TableView<AccountData> accountTable;
+    @FXML private TableColumn<AccountData, String> passwordTableColumn;
 
     @Override
     public void initialize() {
         if (AppData.getInstance().getAccountDataList() == null) {
-            File csvFile = new File(Objects.requireNonNull(getClass().getResource("/com/wasp/data/account_data.csv")).getFile());
-            CsvHandler<AccountData> csvHandler = new CsvHandler<>(csvFile, AccountData.class);
+            CsvHandler<AccountData> csvHandler = new CsvHandler<>(AppData.getInstance().getAccountDataFile(), AccountData.class);
             List<AccountData> accountDataList = csvHandler.getCsvList();
             AppData.getInstance().setAccountDataList(accountDataList);
         }
@@ -37,6 +33,7 @@ public class MainController extends BaseMainController {
         searchOptions.setItems(ObservableListHandler.getObservableList(searchOptionsList));
         searchOptions.setValue("all");
 
+        passwordTableColumn.setCellValueFactory(new PropertyValueFactory<>("hiddenPassword"));
         accountTable.setItems(ObservableListHandler.getObservableList(DataHandler.getTableEntries()));
     }
 
@@ -51,7 +48,6 @@ public class MainController extends BaseMainController {
         if (event.getClickCount() == 2) {
             AccountData account = accountTable.getSelectionModel().getSelectedItem();
             if (account != null) {
-                account.unhidePassword();
                 AppData.getInstance().setSelectedAccount(account);
                 mainApp.switchToPage("account_details_page.fxml");
             }

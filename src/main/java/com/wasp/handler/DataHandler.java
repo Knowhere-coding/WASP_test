@@ -9,20 +9,13 @@ import java.util.Map;
 
 public class DataHandler {
 
-    public static List<AccountData> getTableEntries(String searchString, String option, boolean isPasswordHidden) {
+    public static List<AccountData> getTableEntries(String searchString, String option) {
         List<AccountData> entries = AppData.getInstance().getAccountDataList();
         List<AccountData> filteredEntries = new ArrayList<>();
 
         for (AccountData entry : entries) {
             Map<String, String> entryValues = entry.getMappedValues();
             String entryValuesStr = String.join(",", entry.getValues());
-
-            if (isPasswordHidden) {
-                entry.hidePassword();
-            } else {
-                entry.unhidePassword();
-            }
-
             if (searchString.isEmpty()) {
                 filteredEntries.add(entry);
             } else if (option.isEmpty() && entryValuesStr.contains(searchString.toLowerCase())) {
@@ -34,12 +27,8 @@ public class DataHandler {
         return filteredEntries;
     }
 
-    public static List<AccountData> getTableEntries(String searchString, String option) {
-        return getTableEntries(searchString, option, true);
-    }
-
     public static List<AccountData> getTableEntries() {
-        return getTableEntries("", "", true);
+        return getTableEntries("", "");
     }
 
     public static int getNextAccountIndex() {

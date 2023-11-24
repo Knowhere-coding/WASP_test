@@ -1,9 +1,10 @@
 module com.wasp.javafx {
-    requires javafx.controls;
-    requires javafx.fxml;
     requires com.opencsv;
     requires java.sql;
     requires java.desktop;
+    requires javafx.graphics;
+    requires javafx.fxml;
+    requires javafx.controls;
 
     exports com.wasp;
     opens com.wasp to javafx.fxml;

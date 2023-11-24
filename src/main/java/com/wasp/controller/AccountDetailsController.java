@@ -6,12 +6,13 @@ import com.wasp.data.ExpirationEnum;
 import com.wasp.handler.CsvHandler;
 import com.wasp.handler.ObservableListHandler;
 import com.wasp.handler.ValidationHandler;
-import com.wasp.ui.elements.ValidatingTextField;
+import com.wasp.ui.elements.AdvancedPasswordField;
+import com.wasp.ui.elements.CustomInputComponent;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.util.Duration;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
@@ -21,19 +22,19 @@ import java.net.URI;
 
 public class AccountDetailsController extends BaseMainController {
 
-    @FXML private ValidatingTextField siteNameField;
-    @FXML private ValidatingTextField urlField;
+    @FXML private CustomInputComponent siteNameField;
+    @FXML private CustomInputComponent urlField;
     @FXML private Button openUrlButton;
-    @FXML private ValidatingTextField usernameField;
-    @FXML private ValidatingTextField emailField;
-    @FXML private TextField passwordField;
+    @FXML private CustomInputComponent usernameField;
+    @FXML private CustomInputComponent emailField;
+    @FXML private CustomInputComponent passwordField;
     @FXML private Label changeDateLabel;
     @FXML private TextArea additionalInformationTextArea;
 
     @FXML private ChoiceBox<String> categoryOptions;
     @FXML private ChoiceBox<String> expirationOptions;
 
-    private ValidatingTextField[] validatingTextFields;
+    private CustomInputComponent[] validatingTextFields;
     private ChoiceBox[] choiceBoxes;
 
     @FXML private Button editButton;
@@ -48,12 +49,14 @@ public class AccountDetailsController extends BaseMainController {
         List<String> expirationLabels = ExpirationEnum.getAllLabels();
         expirationOptions.setItems(ObservableListHandler.getObservableList(expirationLabels));
 
-        validatingTextFields = new ValidatingTextField[]{siteNameField, urlField, usernameField, emailField};
+        validatingTextFields = new CustomInputComponent[]{siteNameField, urlField, usernameField, emailField, passwordField};
         choiceBoxes = new ChoiceBox[]{categoryOptions, expirationOptions};
 
-        Arrays.stream(validatingTextFields).forEach(ValidatingTextField::initialize);
+        Arrays.stream(validatingTextFields).forEach(CustomInputComponent::initialize);
+
         setValidations();
         setAccountDetailValues();
+        ((AdvancedPasswordField)passwordField).setTextFieldVisible();
         toggleFieldDisable();
     }
 
@@ -68,7 +71,7 @@ public class AccountDetailsController extends BaseMainController {
         setAccountDetailValues();
         toggleFieldDisable();
         toggleButtonVisibility();
-        Arrays.stream(validatingTextFields).forEach(ValidatingTextField::checkInput);
+        Arrays.stream(validatingTextFields).forEach(CustomInputComponent::removeStyles);
     }
 
     @FXML
@@ -79,7 +82,7 @@ public class AccountDetailsController extends BaseMainController {
             toggleFieldDisable();
             toggleButtonVisibility();
         } else {
-            Arrays.stream(validatingTextFields).forEach(ValidatingTextField::checkInput);
+            Arrays.stream(validatingTextFields).forEach(CustomInputComponent::checkInput);
         }
     }
 
@@ -89,7 +92,6 @@ public class AccountDetailsController extends BaseMainController {
             try {
                 Desktop.getDesktop().browse(new URI(urlField.getText()));
             } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
                 openUrlButton.setDisable(true);
                 openUrlButton.getStyleClass().add("open-url-button-error");
                 PauseTransition errorTransition = new PauseTransition(Duration.seconds(3));
@@ -132,17 +134,13 @@ public class AccountDetailsController extends BaseMainController {
         selectedAccount.setChangeDate(dateString);
         selectedAccount.setAdditionalInformation(additionalInformationTextArea.getText());
 
-        File csvFile = new File(Objects.requireNonNull(getClass().getResource("/com/wasp/data/account_data.csv")).getFile());
-        CsvHandler<AccountData> csvHandler = new CsvHandler<>(csvFile, AccountData.class);
+        CsvHandler<AccountData> csvHandler = new CsvHandler<>(AppData.getInstance().getAccountDataFile(), AccountData.class);
         csvHandler.updateEntries(AppData.getInstance().getAccountDataList());
     }
 
     private void toggleFieldDisable() {
-        passwordField.setDisable(!passwordField.isDisabled());
 
-        Arrays.stream(validatingTextFields).forEach(validatingTextField -> {
-            validatingTextField.setDisable(!validatingTextField.isDisabled());
-        });
+        Arrays.stream(validatingTextFields).forEach(validatingTextField -> ((Node)validatingTextField).setDisable(!((Node)validatingTextField).isDisabled()));
 
         Arrays.stream(choiceBoxes).forEach(choiceBox -> choiceBox.setDisable(!choiceBox.isDisabled()));
         additionalInformationTextArea.setDisable(!additionalInformationTextArea.isDisabled());
@@ -155,17 +153,7 @@ public class AccountDetailsController extends BaseMainController {
     }
 
     public boolean checkAllInputs() {
-        boolean validInputs = true;
-
-        if (passwordField.getText().isEmpty()) {
-            validInputs = false;
-        }
-
-        if (!Arrays.stream(validatingTextFields).allMatch(validatingTextField -> validatingTextField.getIsValidProperty().get())) {
-            validInputs = false;
-        }
-
-        return validInputs;
+        return Arrays.stream(validatingTextFields).allMatch(validatingTextField -> validatingTextField.getIsValidProperty().get());
     }
 
     private void setValidations() {
@@ -180,5 +168,8 @@ public class AccountDetailsController extends BaseMainController {
 
         // email validation
         emailField.setValidation(ValidationHandler.EMAIL_VALIDATION);
+
+        // password validation
+        passwordField.setValidation(ValidationHandler.PASSWORD_VALIDATION);
     }
 }

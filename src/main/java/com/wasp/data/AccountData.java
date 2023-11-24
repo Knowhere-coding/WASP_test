@@ -10,7 +10,6 @@ public class AccountData implements BaseData {
     private String username;
     private String email;
     private String password;
-    private String textPassword;
     private String hiddenPassword;
     private String changeDate;
     private int expiration;
@@ -25,13 +24,9 @@ public class AccountData implements BaseData {
         this.url = url;
         this.username = username;
         this.email = email;
-
         this.password = password;
-        this.textPassword = password;
-        this.hiddenPassword = password.replaceAll(".", "*");
-
+        this.hiddenPassword = "*".repeat(password.length());
         this.additionalInformation = additionalInformation;
-
         this.changeDate = changeDate;
         this.expiration = expiration;
         this.category = category;
@@ -44,7 +39,6 @@ public class AccountData implements BaseData {
     public void setId(int id) {
         this.id = id;
     }
-
     public String getSiteName() {
         return siteName;
     }
@@ -83,8 +77,15 @@ public class AccountData implements BaseData {
 
     public void setPassword(String password) {
         this.password = password;
-        this.textPassword = password;
-        this.hiddenPassword = password.replaceAll(".", "*");
+        this.hiddenPassword = "*".repeat(password.length());
+    }
+
+    public String getHiddenPassword() {
+        return hiddenPassword;
+    }
+
+    public void setHiddenPassword(String hiddenPassword) {
+        this.hiddenPassword = hiddenPassword;
     }
 
     public String getChangeDate() {
@@ -128,6 +129,7 @@ public class AccountData implements BaseData {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", hiddenPassword='" + hiddenPassword + '\'' +
                 ", additionalInformation='" + additionalInformation + '\'' +
                 ", changeDate='" + changeDate + '\'' +
                 ", expiration=" + expiration +
@@ -149,20 +151,11 @@ public class AccountData implements BaseData {
             put("username", username);
             put("email", email);
             put("password", password);
+            put("hiddenPassword", hiddenPassword);
             put("additionalInformation", additionalInformation);
             put("changeDate", changeDate);
             put("expiration", String.valueOf(expiration));
             put("category", category);
         }};
-    }
-
-    @Override
-    public void hidePassword() {
-        this.password = hiddenPassword;
-    }
-
-    @Override
-    public void unhidePassword() {
-        this.password = textPassword;
     }
 }

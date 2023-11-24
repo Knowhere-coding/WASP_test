@@ -46,7 +46,7 @@
 }
 
 .account-field:disabled {
-    -fx-background-color: transparent;
+    -fx-background-color: #404040;
     -fx-prompt-text-fill: transparent;
     -fx-opacity: 1;
 }
@@ -138,4 +138,32 @@
 
 .additional-information-text-area:focused .content {
     -fx-background-color: #323232;
+}
+
+/* Check Box */
+.check-box .box {
+    -fx-background-color: #404040;
+    -fx-border-color: #505050;
+    -fx-border-radius: 2px;
+}
+
+.check-box .box:disabled {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #454545;
+}
+
+.check-box:selected .box:disabled {
+    -fx-background-color: transparent;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #F8B607;
+}
+
+.check-box:selected .mark:disabled {
+    -fx-background-color: transparent;
 }

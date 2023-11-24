@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 
 import java.util.function.Predicate;
 
-public class ValidatingTextField extends VBox {
+public class ValidatingTextField extends VBox implements CustomInputComponent {
     private VBox container;
     private Label textFieldLabel;
     private TextField textField;
@@ -111,6 +111,10 @@ public class ValidatingTextField extends VBox {
         setTextFieldStatusStyle();
     }
 
+    public void removeStyles() {
+        textField.setStyle(defaultFieldStyle);
+    }
+
     public void setValidation(Predicate<String> validation) {
         this.validation = validation;
         isValidProperty.set(validation.test(textField.getText()));
@@ -118,14 +122,6 @@ public class ValidatingTextField extends VBox {
 
     public BooleanProperty getIsValidProperty() {
         return isValidProperty;
-    }
-
-    public void addTextFieldStyle(String style) {
-        textField.getStyleClass().add(style);
-    }
-
-    public void removeTextFieldStyle(String style) {
-        textField.getStyleClass().remove(style);
     }
 
     public String getText() {
