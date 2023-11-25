@@ -29,7 +29,7 @@ jobs:
         ls -la
 
     - name: Step 5 - Upload JAR
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: WASP
         path: target/*.jar
