@@ -20,7 +20,7 @@ jobs:
         java-version: '21'
 
     - name: Step 3 - Build JAR using Maven
-      run: mvn -B package --file .\pom.xml
+      run: mvn -B package --file pom.xml
 
     - name: Step 4 - Show directory overview
       run: |
