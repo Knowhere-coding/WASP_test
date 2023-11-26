@@ -36,6 +36,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    needs: build
+
     steps:
     - name: Step 1 - Test
       run: ls -la
